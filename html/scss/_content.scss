@@ -1,0 +1,25 @@
+// main: style.scss
+
+#content {
+    margin-left: size($layout, 'sidebar');
+
+    .page-header {
+        h6 {
+            color: color($theme, 'section');
+            font-size: 0.8rem;
+            font-weight: lighter;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        h3 {
+            margin: 0;
+        }
+    }
+}
+
+@media (max-width: 767px) {
+    #content {
+        margin-left: 0;
+    }
+}

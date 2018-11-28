@@ -1,0 +1,17 @@
+// main: style.scss
+
+.navbar {
+    background-color: color($theme, 'light');
+    border-bottom: 1px solid color($theme, 'borders');
+    min-height: size($layout, 'navbar');
+    padding: 0;
+}
+
+.toggle-sidebar {
+    padding: 1rem;
+
+    .icon {
+        color: color($nav, 'icon');
+        font-size: 1.25rem;
+    }
+}

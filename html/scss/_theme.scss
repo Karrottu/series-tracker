@@ -1,0 +1,20 @@
+// main: style.scss
+
+$theme: (
+    background: #e2e4e6,
+    borders: #e1e5eb,
+    light: #fff,
+    section: #52627b
+);
+
+$nav: (
+    active: #007bff,
+    icon: #caceda,
+    text: #3d5170
+);
+
+$layout: (
+    navbar: 3.5rem,
+    rootSize: 14px,
+    sidebar: 15rem
+);

@@ -1,0 +1,6 @@
+// main: style.scss
+
+html, body {
+    background-color: color($theme, 'background');
+    font-size: size($layout, 'rootSize');
+}
