@@ -96,6 +96,10 @@
     // Add a new show to the table.
     function edit_show($id, $name, $desc, $airtime, $duration, $rating)
     {
+        if (check_show($id, $name, $desc, $airtime, $duration, $rating))
+        {
+            return TRUE;
+        }
         // 1. Connect to the database.
         $link = connect();
 
@@ -125,5 +129,39 @@
 
         // 6. If the query worked, we should have changed one row.
         return mysqli_stmt_affected_rows($stmt) == 1;
+    }
+
+    //Checks that the information in a show has changed.
+    function check_show($id, $name, $desc, $airtime, $duration, $rating)
+    {
+        // 1. Connect to the database.
+        $link = connect();
+
+        // 2. Protect variables to avoid any SQL injection
+        $id = mysqli_real_escape_string($link, $id);
+        $name = mysqli_real_escape_string($link, $name);
+        $desc = mysqli_real_escape_string($link, $desc);
+        $airtime = mysqli_real_escape_string($link, $airtime);
+        $duration = mysqli_real_escape_string($link, $duration);
+        $rating = mysqli_real_escape_string($link, $rating);
+
+        // 3. Generate a query and return the result
+        $result = mysqli_query($link, "
+            SELECT id
+            FROM tbl_shows
+            WHERE
+                id = {$id} AND
+                name = '{$name}' AND
+                desc = '{$desc}' AND
+                airtime = {$airtime} AND
+                duration = {$duration} AND
+                rating = {$rating}
+        ");
+
+        // 4. Disconnect from the database.
+        disconnect($link);
+
+        // 5. If the query worked, we should have a new primary key ID.
+        return mysqli_num_rows($result) == 1;
     }
 ?>
