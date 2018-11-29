@@ -93,7 +93,7 @@
         return mysqli_fetch_assoc($result) ?: FALSE;
     }
 
-    // Add a new show to the table.
+    // Edit a show to the table.
     function edit_show($id, $name, $desc, $airtime, $duration, $rating)
     {
         if (check_show($id, $name, $desc, $airtime, $duration, $rating))
@@ -152,7 +152,7 @@
             WHERE
                 id = {$id} AND
                 name = '{$name}' AND
-                desc = '{$desc}' AND
+                descrpt = '{$desc}' AND
                 airtime = {$airtime} AND
                 duration = {$duration} AND
                 rating = {$rating}
@@ -163,5 +163,32 @@
 
         // 5. If the query worked, we should have a new primary key ID.
         return mysqli_num_rows($result) == 1;
+    }
+
+    // Delete a show to the table.
+    function delete_show($id)
+    {
+        // 1. Connect to the database.
+        $link = connect();
+
+        // 2. Prepare the statement using mysqli
+        // to take care of any potential SQL injections.
+        $stmt = mysqli_prepare($link, "
+            DELETE FROM tbl_shows
+                WHERE id = ?
+        ");
+
+        // 3. Bind the parameters so we don't have to do the work ourselves.
+        // the sequence means: string string double integer double
+        mysqli_stmt_bind_param($stmt, 'i', $id);
+
+        // 4. Execute the statement.
+        mysqli_stmt_execute($stmt);
+
+        // 5. Disconnect from the database.
+        disconnect($link);
+
+        // 6. If the query worked, we should have changed one row.
+        return mysqli_stmt_affected_rows($stmt) == 1;
     }
 ?>

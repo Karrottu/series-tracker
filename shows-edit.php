@@ -14,8 +14,11 @@
 
     $show['show-airtime'] = date('H:i', $show['show-airtime']);
 
-    $formdata = to_formdata($show);
-
+    // Only convert the form information if nothing is in the sessions!
+    if(!$formdata = get_formdata())
+    {
+        $formdata = to_formdata($show);
+    }
     include 'template/header.php';
 ?>
 

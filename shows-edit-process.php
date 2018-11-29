@@ -39,7 +39,8 @@
     $airtime = strtotime($airtime, 0);
 
     // If the air time was not converted properly.
-    if (!$airtime)
+    // === will check that it is not just zero, but
+    if ($airtime === FALSE)
     {
         $has_errors = set_error('show-airtime', 'The airtime is in a wrong format. Please use 00:00.');
     }
@@ -62,7 +63,7 @@
     // 5. if there are errors, we should go back and show them.
     if ($has_errors)
     {
-        redirect('shows-edit');
+        redirect('shows-edit', ['id' => $id]);
     }
 
     // 6. Check that the record exists and try to edit it
@@ -71,4 +72,8 @@
     {
         exit('The record could not be updated');
     }
+
+    // 7. Everything worked, go back to the list.
+    clear_formdata();
+    redirect('shows-list');
 ?>

@@ -41,7 +41,7 @@
                                 <a href="shows-edit.php?id=<?php echo $row['id']; ?>">
                                     <i class="icon fas fa-pencil-alt"></i>
                                 </a>
-                                <a href="#">
+                                <a href="shows-delete.php?id=<?php echo $row ['id']; ?>">
                                     <i class="icon fas fa-trash"></i>
                                 </a>
                             </td>
