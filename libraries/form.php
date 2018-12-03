@@ -21,16 +21,16 @@
 		return $data;
 	}
 
-    //retrieves the value of an item.
-    function get_value ($haystack = [], $needle = '')
-    {
-        if (!isset($haystack[$needle]) || !isset($haystack[$needle]['value']))
+	// retrieves the value of an item.
+	function get_value($haystack = [], $needle = '')
+	{
+		if (!isset($haystack[$needle]) || !isset($haystack[$needle]['value']))
 		{
 			return '';
 		}
 
 		return htmlspecialchars($haystack[$needle]['value']);
-    }
+	}
 
 	// checks if the form key has any errors.
 	function get_error($haystack = [], $needle = '')
@@ -102,17 +102,17 @@
 		}
 	}
 
-    // Converts database records into formdata we can use
-    function to_formdata($info = [])
+	// Converts database records into formdata we can use.
+	function to_formdata($info = [])
 	{
 		foreach ($info as $input => $value)
-        {
-            $info[$input] = [
-                'value'     => $value,
-                'error'     => FALSE
-            ];
-        }
+		{
+			$info[$input] = [
+				'value'		=> $value,
+				'error'		=> FALSE
+			];
+		}
 
-        return $info;
+		return $info;
 	}
 ?>

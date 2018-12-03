@@ -14,12 +14,13 @@
 	set_formdata($_POST);
 
     // 3. retrieve the variables from $_POST.
-    $name       = $_POST['show-name'];
-    $desc       = $_POST['show-desc'];
-    $channel    = $_POST['show-channel'] ?: NULL;
-    $airtime    = $_POST['show-airtime'];
-    $duration   = $_POST['show-duration'];
-    $rating     = $_POST['show-rating'];
+    $name       = $_POST['episode-name'];
+    $desc       = $_POST['episode-desc'];
+    $show       = $_POST['episode-show'] ?: NULL;
+    $airdate    = $_POST['episode-airdate'];
+    $season     = $_POST['episode-season'];
+    $episode    = $_POST['episode-episode'];
+    $rating     = $_POST['episode-rating'];
 
     // we'll use a boolean to determine if we have errors on the page.
     $has_errors = FALSE;
@@ -27,53 +28,54 @@
     // 4. check the inputs that are required.
     if (empty($name))
     {
-    	$has_errors = set_error('show-name', 'The name field is required.');
+    	$has_errors = set_error('episode-name', 'The name field is required.');
     }
 
-    if (empty($channel))
+    if (empty($show))
     {
-        $has_errors = set_error('show-channel', 'Please choose a channel.');
+        $has_errors = set_error('episode-show', 'Please choose a show.');
     }
 
-    if (empty($airtime))
+    if (empty($airdate))
     {
-    	$has_errors = set_error('show-airtime', 'The airtime field is required.');
+    	$has_errors = set_error('episode-airdate', 'The airdate field is required.');
     }
 
     // to confirm a time, we can use STRTOTIME.
-    $airtime = strtotime($airtime, 0);
+    $airdate = strtotime($airdate);
 
     // If the air time was not converted properly.
-    if (!$airtime)
+    if (!$airdate)
     {
-    	$has_errors = set_error('show-airtime', 'The airtime is in a wrong format. Please use 00:00.');
+    	$has_errors = set_error('episode-airdate', 'The air date is in a wrong format. Please use DD/MM/YYYY.');
     }
 
-    if (empty($duration))
+    if (empty($season))
     {
-    	$has_errors = set_error('show-duration', 'The duration field is required.');
+    	$has_errors = set_error('episode-season', 'The season field is required.');
     }
 
-    if ($duration < 5)
+    if (empty($episode))
     {
-    	$has_errors = set_error('show-duration', 'The duration of a show should be at least 5 minutes.');
+        $has_errors = set_error('episode-episode', 'The episode field is required.');
     }
 
     if (!empty($rating) && ($rating < 0 || $rating > 10))
     {
-    	$has_errors = set_error('show-rating', 'Ratings must be between 0 and 10.');
+    	$has_errors = set_error('episode-rating', 'Ratings must be between 0 and 10.');
     }
 
 	// 5. if there are errors, we should go back and show them.
     if ($has_errors)
     {
-        redirect('shows-add');
+        redirect('episodes-add', ['show' => $show]);
     }
+
 
     // 6. Insert the data in the table.
     // since the function will return a number, we can check it
     // to see if the query worked.
-    $check = add_show($name, $desc, $airtime, $duration, $rating, $channel);
+    $check = add_episode($name, $desc, $airdate, $season, $episode, $rating, $show);
     if (!$check)
     {
         exit("The query was unsuccessful.");
@@ -81,6 +83,6 @@
 
     // 7. Everything worked, go back to the list.
     clear_formdata();
-    redirect('shows-list');
+    redirect('episodes-list', ['id' => $show]);
 
 ?>

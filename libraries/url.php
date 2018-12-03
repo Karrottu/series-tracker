@@ -3,7 +3,7 @@
     define('BASE_URL', 'http://localhost/php/series-tracker/');
 
     // Redirects the website to a specific file.
-    function redirect($url = '', $params = [])
+    function redirect($url = '', $param = [])
     {
         // if the first character is a slash, remove it.
         if (substr($url, 0, 1) === '/')
@@ -20,15 +20,15 @@
         // start the link using the website address.
         $url = BASE_URL . $url;
 
-        // if there are parameters, add them to the url
-        if ($params)
+        // only add parameters if we have any.
+        if ($param)
         {
-            // array_map will apply a function to an entire array
-            $params = array_map(function ($key, $value){
-                return "{$key}={$value}";
-            }, array_keys($params), array_values($params));
+            // add the parameters to the end of the url.
+            $param = array_map(function($k, $v) {
+                return "{$k}={$v}";
+            }, array_keys($param), array_values($param));
 
-            $url .= '?' . implode('&', $params);
+            $url .= '?' . implode('&', $param);
         }
 
         // redirect and stop the code.

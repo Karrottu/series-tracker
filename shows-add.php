@@ -4,6 +4,8 @@
 
     include 'template/header.php';
 
+    $channels = get_all_channels();
+
 	// we can use a function to make this part easy.
     $formdata = get_formdata();
 ?>
@@ -20,23 +22,42 @@
         <div class="card">
             <div class="card-body">
 <?php if (has_error($formdata, 'show-name')): ?>
-                <div class= "alert-danger mb-3 p-3">
-                    <?php echo get_error ($formdata, 'show-name'); ?>
+                <div class="alert-danger mb-3 p-3">
+                    <?php echo get_error($formdata, 'show-name'); ?>
                 </div>
 <?php endif; ?>
-                <input type="text" name="show-name" class="form-control mb-3" placeholder="New Show" value="<?php echo get_value($formdata, 'show-name'); ?>">
+                <input type="text" name="show-name" class="form-control mb-3" placeholder="New Show"
+                    value="<?php echo get_value($formdata, 'show-name'); ?>">
 
 <?php if (has_error($formdata, 'show-desc')): ?>
-            <div class= "alert-danger mb-3 p-3">
-                <?php echo get_error ($formdata, 'show-desc'); ?>
+                <div class="alert-danger mb-3 p-3">
+                    <?php echo get_error($formdata, 'show-desc'); ?>
+                </div>
+<?php endif; ?>
+                <textarea name="show-desc" rows="8" cols="80" placeholder="What is this show about?" class="form-control mb-3"><?php echo get_value($formdata, 'show-desc'); ?></textarea>
+
+<?php if (has_error($formdata, 'show-channel')): ?>
+            <div class="alert-danger mb-3 p-3">
+                <?php echo get_error($formdata, 'show-channel'); ?>
             </div>
 <?php endif; ?>
-                <textarea name="show-desc" rows="8" cols="80" placeholder="What is this show about?" class="form-control mb-3" value="<?php echo get_value($formdata, 'show-desc'); ?>"></textarea>
+            <div class="form-group row">
+                <label for="input-show-channel" class="col-sm-3 col-form-label">Channel:</label>
+                <div class="col-sm-9">
+                    <select class="custom-select mb-3" name="show-channel" id="input-show-channel">
+                        <option disabled selected>Choose an Channel</option>
+<?php while ($channel = mysqli_fetch_assoc($channels)): ?>
+                        <option value="<?php echo $channel['id']; ?>"><?php echo $channel['name']; ?></option>
+
+<?php endwhile; ?>
+                    </select>
+                </div>
+            </div>
 
 <?php if (has_error($formdata, 'show-airtime')): ?>
-                <div class= "alert-danger mb-3 p-3">
-                    <?php echo get_error ($formdata, 'show-airtime'); ?>
-                </div>
+            <div class="alert-danger mb-3 p-3">
+                <?php echo get_error($formdata, 'show-airtime'); ?>
+            </div>
 <?php endif; ?>
                 <div class="form-group row">
                     <label for="input-show-airtime" class="col-sm-3 col-form-label">Airtime:</label>
@@ -46,6 +67,11 @@
                     </div>
                 </div>
 
+<?php if (has_error($formdata, 'show-duration')): ?>
+                <div class="alert-danger mb-3 p-3">
+                    <?php echo get_error($formdata, 'show-duration'); ?>
+                </div>
+<?php endif; ?>
                 <div class="form-group row">
                     <label for="input-show-duration" class="col-sm-3 col-form-label">Duration (mins):</label>
                     <div class="col-sm-9">
@@ -53,9 +79,10 @@
                             id="input-show-duration" value="<?php echo get_value($formdata, 'show-duration'); ?>">
                     </div>
                 </div>
+
 <?php if (has_error($formdata, 'show-rating')): ?>
-                <div class= "alert-danger mb-3 p-3">
-                    <?php echo get_error ($formdata, 'show-rating'); ?>
+                <div class="alert-danger mb-3 p-3">
+                    <?php echo get_error($formdata, 'show-rating'); ?>
                 </div>
 <?php endif; ?>
                 <div class="form-group row">

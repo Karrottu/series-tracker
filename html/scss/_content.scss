@@ -16,6 +16,16 @@
             margin: 0;
         }
     }
+
+    .counter {
+        counter-reset: list-counter;
+
+        &::before
+        {
+            counter-increment: list-counter;
+            content: counter(list-counter);
+        }
+    }
 }
 
 @media (max-width: 767px) {

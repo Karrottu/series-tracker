@@ -3,13 +3,13 @@
 
     include 'template/header.php';
 
-    $shows = get_all_shows();
+    $channels = get_all_channels();
 ?>
 
 <header class="page-header row no-gutters py-4 border-bottom">
     <div class="col-12">
-        <h6 class="text-center text-md-left">Shows</h6>
-        <h3 class="text-center text-md-left">All Shows</h3>
+        <h6 class="text-center text-md-left">Channels</h6>
+        <h3 class="text-center text-md-left">All Channels</h3>
     </div>
 </header>
 
@@ -27,25 +27,20 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Name</th>
-                            <th scope="col">Rating</th>
                             <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
-<?php while($row = mysqli_fetch_assoc($shows)): ?>
+<?php while($row = mysqli_fetch_assoc($channels)): ?>
                         <tr>
                             <td><span class="counter"></span></td>
                             <td><?php echo $row['name']; ?></td>
-                            <td><?php echo $row['rating']; ?></td>
                             <td>
-                                <a href="shows-edit.php?id=<?php echo $row['id']; ?>">
+                                <a href="channels-edit.php?id=<?php echo $row['id']; ?>">
                                     <i class="icon fas fa-pencil-alt"></i>
                                 </a>
-                                <a href="shows-delete.php?id=<?php echo $row['id']; ?>">
+                                <a href="channels-delete.php?id=<?php echo $row['id']; ?>">
                                     <i class="icon fas fa-trash"></i>
-                                </a>
-                                <a href="episodes-list.php?id=<?php echo $row['id']; ?>">
-                                    <i class="icon fas fa-eye"></i>
                                 </a>
                             </td>
                         </tr>

@@ -25,6 +25,49 @@
                 <ul class="nav flex-column">
                     <li class="nav-item dropright">
                         <a href="#" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="icon fas fa-tv"></i>
+                            <span>Channels</span>
+                        </a>
+
+                        <div class="dropdown-menu">
+                            <ul class="nav">
+                                <li class="nav-item">
+                                    <a href="channels-list.php" class="nav-link">
+                                        <i class="icon fas fa-bars"></i>
+                                        <span>All Channels</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="channels-add.php" class="nav-link">
+                                        <i class="icon fas fa-plus"></i>
+                                        <span>Add Channel</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <ul class="nav flex-column">
+                        <li class="nav-item dropright">
+                            <a href="#" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="icon fas fa-eye"></i>
+                                <span>Episodes</span>
+                            </a>
+
+                            <div class="dropdown-menu">
+                                <ul class="nav">
+                                    <li class="nav-item">
+                                        <a href="episodes-add.php" class="nav-link">
+                                            <i class="icon fas fa-plus"></i>
+                                            <span>Add Episode</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                    <li class="nav-item dropright">
+                        <a href="#" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="icon fas fa-theater-masks"></i>
                             <span>Shows</span>
                         </a>

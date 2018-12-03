@@ -112,8 +112,19 @@ html, body {
     margin: 0;
 }
 
+#content .counter {
+    counter-reset: list-counter;
+}
+
+#content .counter::before {
+    counter-increment: list-counter;
+    content: counter(list-counter);
+}
+
 @media (max-width: 767px) {
     #content {
         margin-left: 0;
     }
 }
+
+/*# sourceMappingURL=style.css.map */

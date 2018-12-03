@@ -3,13 +3,28 @@
 
     include 'template/header.php';
 
-    $shows = get_all_shows();
+    // 1. Store the id for the show in a variable.
+    $id = $_GET['id'];
+
+    // 2. Get the information from the database.
+    // if after I set $show, the value is FALSE:
+    if (!$show = get_show($id))
+    {
+        exit("This show doesn't exist.");
+    }
+
+    // 3. Get the episodes for this show.
+    $episodes = get_all_episodes($_GET['id']);
 ?>
 
 <header class="page-header row no-gutters py-4 border-bottom">
     <div class="col-12">
-        <h6 class="text-center text-md-left">Shows</h6>
-        <h3 class="text-center text-md-left">All Shows</h3>
+        <h6 class="text-center text-md-left">Episodes</h6>
+        <h3 class="text-center text-md-left"><?php echo $show['show-name']; ?></h3>
+
+        <div class="float-right">
+            <a href="episodes-add.php?show=<?php echo $id; ?>">Add Episode</a>
+        </div>
     </div>
 </header>
 
@@ -32,7 +47,7 @@
                         </tr>
                     </thead>
                     <tbody>
-<?php while($row = mysqli_fetch_assoc($shows)): ?>
+<?php while($row = mysqli_fetch_assoc($episodes)): ?>
                         <tr>
                             <td><span class="counter"></span></td>
                             <td><?php echo $row['name']; ?></td>
@@ -43,9 +58,6 @@
                                 </a>
                                 <a href="shows-delete.php?id=<?php echo $row['id']; ?>">
                                     <i class="icon fas fa-trash"></i>
-                                </a>
-                                <a href="episodes-list.php?id=<?php echo $row['id']; ?>">
-                                    <i class="icon fas fa-eye"></i>
                                 </a>
                             </td>
                         </tr>
