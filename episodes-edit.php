@@ -3,23 +3,38 @@
     include 'libraries/database.php';
     include 'libraries/login-check.php';
 
+    // 1. Store the id for the show in a variable.
+    $id = $_GET['id'];
+
+    // 2. Get the information from the database.
+    // if after I set $episode, the value is FALSE:
+    if (!$episode = get_episode($id))
+    {
+        exit("This episode doesn't exist.");
+    }
+
     include 'template/header.php';
 
     $shows = get_all_shows_dropdown();
     $show_id = (array_key_exists('show', $_GET)) ? $_GET['show'] : NULL;
 
-	// we can use a function to make this part easy.
-    $formdata = get_formdata();
+    $episode['episode-airdate'] = date('m/d/Y', $episode['episode-airdate']);
+
+    // 4. only convert this data if there is nothing else on the server.
+    if (!$formdata = get_formdata())
+    {
+        $formdata = to_formdata($episode);
+    }
 ?>
 
 <header class="page-header row no-gutters py-4 border-bottom">
     <div class="col-12">
         <h6 class="text-center text-md-left">Episodes</h6>
-        <h3 class="text-center text-md-left">New Episode</h3>
+        <h3 class="text-center text-md-left">Edit Episode</h3>
     </div>
 </header>
 
-<form class="row content" action="episodes-add-process.php" method="post">
+<form class="row content" action="episodes-edit-process.php" method="post">
     <div class="col-12 col-lg-9">
         <div class="card">
             <div class="card-body">
@@ -113,6 +128,8 @@
     <div class="col-12 col-lg-3 mt-3 mt-lg-0">
         <div class="card">
             <div class="card-body">
+                <input type="hidden" name="episode-id" value="<?php echo $id; ?>">
+
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </div>

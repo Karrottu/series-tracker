@@ -1,6 +1,7 @@
 <?php
     include 'libraries/form.php';
     include 'libraries/database.php';
+    include 'libraries/login-check.php';
 
     // 1. Store the id for the show in a variable.
     $id = $_GET['id'];
@@ -15,7 +16,7 @@
     // 3. modify the data we need to fit a specific format.
     $show['show-airtime'] = date('H:i', $show['show-airtime']);
     $channels = get_all_channels();
-    
+
     // 4. only convert this data if there is nothing else on the server.
     if (!$formdata = get_formdata())
     {

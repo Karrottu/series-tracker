@@ -112,13 +112,23 @@ html, body {
     margin: 0;
 }
 
-#content .counter {
-    counter-reset: list-counter;
+#content .table {
+    counter-reset: counter;
 }
 
-#content .counter::before {
-    counter-increment: list-counter;
-    content: counter(list-counter);
+#content .table .counter::before {
+    counter-increment: counter;
+    content: counter(counter);
+}
+
+#content .table a {
+    color: #52627b;
+    margin-left: 0.25rem;
+    text-decoration: none;
+}
+
+#content .table a .icon {
+    font-size: 1rem;
 }
 
 @media (max-width: 767px) {

@@ -1,5 +1,6 @@
 <?php
     include 'libraries/database.php';
+    include 'libraries/login-check.php';
 
     include 'template/header.php';
 

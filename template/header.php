@@ -89,6 +89,13 @@
                             </ul>
                         </div>
                     </li>
+
+                    <li class="nav-item">
+                        <a href="logout.php" class="nav-link">
+                            <i class="icon fas fa-sign-out-alt"></i>
+                            <span>Logout</span>
+                        </a>
+                    </li>
                 </ul>
             </nav>
         </aside>

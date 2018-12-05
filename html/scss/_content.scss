@@ -17,13 +17,24 @@
         }
     }
 
-    .counter {
-        counter-reset: list-counter;
+    .table {
+        counter-reset: counter;
 
-        &::before
-        {
-            counter-increment: list-counter;
-            content: counter(list-counter);
+        .counter {
+            &::before {
+                counter-increment: counter;
+                content: counter(counter);
+            }
+        }
+
+        a {
+            color: color($theme, 'section');
+            margin-left: 0.25rem;
+            text-decoration: none;
+
+            .icon {
+                font-size: 1rem;
+            }
         }
     }
 }

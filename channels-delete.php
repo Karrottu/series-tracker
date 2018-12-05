@@ -1,6 +1,7 @@
 <?php
-    include 'libraries/url.php';
+
     include 'libraries/database.php';
+    include 'libraries/login-check.php';
 
     // 1. Store the id for the channel in a variable.
     $id = $_GET['id'];

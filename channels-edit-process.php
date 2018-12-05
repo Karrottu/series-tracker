@@ -1,7 +1,7 @@
 <?php
     // This file will be used to process the add channels form.
     include 'libraries/form.php';
-    include 'libraries/url.php';
+    
     include 'libraries/database.php';
 
     // 1. check that the form has been sent.

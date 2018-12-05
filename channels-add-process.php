@@ -1,8 +1,10 @@
 <?php
     // This file will be used to process the add shows form.
     include 'libraries/form.php';
-    include 'libraries/url.php';
+
     include 'libraries/database.php';
+
+    include 'libraries/login-check.php';
 
     // 1. check that the form has been sent.
     if ($_SERVER['REQUEST_METHOD'] !== 'POST')
@@ -22,7 +24,7 @@
     // 4. check the inputs that are required.
     if (empty($name))
     {
-    	$has_errors = set_error('show-name', 'The name field is required.');
+    	$has_errors = set_error('channel-name', 'The name field is required.');
     }
 
 	// 5. if there are errors, we should go back and show them.

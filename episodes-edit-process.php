@@ -1,7 +1,6 @@
 <?php
     // This file will be used to process the add shows form.
     include 'libraries/form.php';
-
     include 'libraries/database.php';
     include 'libraries/login-check.php';
 
@@ -22,6 +21,7 @@
     $season     = $_POST['episode-season'];
     $episode    = $_POST['episode-episode'];
     $rating     = $_POST['episode-rating'];
+    $id         = $_POST['episode-id'];
 
     // we'll use a boolean to determine if we have errors on the page.
     $has_errors = FALSE;
@@ -76,10 +76,10 @@
     // 6. Insert the data in the table.
     // since the function will return a number, we can check it
     // to see if the query worked.
-    $check = add_episode($name, $desc, $airdate, $season, $episode, $rating, $show);
+    $check = edit_episode($id, $name, $desc, $airdate, $season, $episode, $rating, $show);
     if (!$check)
     {
-        exit("The query was unsuccessful.");
+        exit("The record could not be updated!");
     }
 
     // 7. Everything worked, go back to the list.

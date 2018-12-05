@@ -1,5 +1,6 @@
 <?php
     include 'libraries/database.php';
+    include 'libraries/login-check.php';
 
     include 'template/header.php';
 
@@ -21,10 +22,6 @@
     <div class="col-12">
         <h6 class="text-center text-md-left">Episodes</h6>
         <h3 class="text-center text-md-left"><?php echo $show['show-name']; ?></h3>
-
-        <div class="float-right">
-            <a href="episodes-add.php?show=<?php echo $id; ?>">Add Episode</a>
-        </div>
     </div>
 </header>
 
@@ -33,7 +30,10 @@
 
         <div class="card">
             <div class="card-header border-bottom-0">
-                <h6 class="m-0">Table</h6>
+                <div class="float-right">
+                    <a href="episodes-add.php?show=<?php echo $id; ?>">New Episode</a>
+                </div>
+                <h6 class="m-0"><?php echo $show['show-name']; ?> episodes</h6>
             </div>
 
             <div class="card-body p-0 text-center">
@@ -53,10 +53,10 @@
                             <td><?php echo $row['name']; ?></td>
                             <td><?php echo $row['rating']; ?></td>
                             <td>
-                                <a href="shows-edit.php?id=<?php echo $row['id']; ?>">
+                                <a href="episodes-edit.php?id=<?php echo $row['id']; ?>&amp;show=<?php echo $id; ?>">
                                     <i class="icon fas fa-pencil-alt"></i>
                                 </a>
-                                <a href="shows-delete.php?id=<?php echo $row['id']; ?>">
+                                <a href="episodes-delete.php?id=<?php echo $row['id']; ?>&amp;show=<?php echo $id; ?>">
                                     <i class="icon fas fa-trash"></i>
                                 </a>
                             </td>
