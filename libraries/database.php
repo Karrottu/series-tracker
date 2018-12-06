@@ -246,7 +246,8 @@
         // 2. Prepare the statement using mysqli
         // to take care of any potential SQL injections.
         $stmt = mysqli_prepare($link, "
-
+            DELETE FROM tbl_user_auth
+            WHERE tbl_users_id = ? AND auth_code = ?
         ");
 
         // 3. Bind the parameters so we don't have to do the work ourselves.
@@ -637,7 +638,25 @@
 
         // 3. Generate a query and return the result.
         $result = mysqli_query($link, "
-
+            SELECT
+                a.id,
+                a.email,
+                b.name,
+                b.surname,
+                c.auth_code,
+                c.expiration
+            FROM
+                tbl_users a
+            LEFT JOIN
+                tbl_user_details b
+            ON
+                a.id = b.user_id
+            LEFT JOIN
+                tbl_user_auth c
+            ON
+                a.id = c.tbl_users_id
+            WHERE
+                a.id = {$id} AND c.ip_address = '{$ip_address}'
         ");
 
         // 4. Disconnect from the database.
@@ -683,11 +702,21 @@
         $link = connect();
 
         // 2. we'll need the information from the cookies.
-
+        $id         = array_key_exists('id', $_COOKIE) ? $_COOKIE['id'] : 0;
+        $auth_code  = array_key_exists('auth_code', $_COOKIE) ? $_COOKIE['auth_code'] : '';
         // 3. Protect variables to avoid any SQL injection
-
+        $id = mysqli_real_escape_string($link, $id);
+        $auth_code = mysqli_real_escape_string($link, $auth_code);
+        $expiration = mysqli_real_escape_string($link, time());
         // 4. Generate a query and return the result.
-
+        $result = mysqli_query($link, "
+            SELECT tbl_users_id
+            FROM tbl_user_auth
+            WHERE
+                tbl_users_id = {$id} AND
+                auth_code = '{$auth_code}' AND
+                expiration > {$expiration}
+        ");
         // 5. Disconnect from the database.
         disconnect($link);
 
@@ -704,7 +733,10 @@
         // 2. Prepare the statement using mysqli
         // to take care of any potential SQL injections.
         $stmt = mysqli_prepare($link, "
-
+            INSERT INTO tbl_user_auth
+                (tbl_users_id, auth_code, ip_address, expiration)
+            VALUES
+                (?, ?, ?, ?)
         ");
 
         // 3. Bind the parameters so we don't have to do the work ourselves.
