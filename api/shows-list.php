@@ -1,5 +1,6 @@
 <?php
     include '../libraries/database.php';
+    include '../libraries/http.php';
 
     $shows = get_all_shows();
 
