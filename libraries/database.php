@@ -103,6 +103,34 @@
         return mysqli_stmt_insert_id($stmt);
     }
 
+    // Checks that the userdata is valid
+    function check_api_auth($id, $auth)
+    {
+        // 1. Connect to the database.
+        $link = connect();
+
+        // 2. Protect variables to avoid any SQL injection
+        $id = mysqli_real_escape_string($link, $id);
+        $auth_code = mysqli_real_escape_string($link, $auth_code);
+        $expiration = mysqli_real_escape_string($link, time());
+
+        // 3. Generate a query and return the result.
+        $result = mysqli_query($link, "
+            SELECT tbl_users_id
+            FROM tbl_user_auth
+            WHERE
+                tbl_users_id = {$id} AND
+                auth_code = '{$auth_code}' AND
+                expiration > {$expiration}
+        ");
+
+        // 4. Disconnect from the database.
+        disconnect($link);
+
+        // 5. There should only be one row, or FALSE if nothing.
+        return mysqli_num_rows($result) == 1;
+    }
+
     // Checks that the information in a channel has changed.
     function check_channel($id, $name)
     {

@@ -21,6 +21,18 @@
         ok();
     }
 
+    //This functon will check that the headers sent by the app are valid
+    function check_login_auth()
+    {
+        $headers = getallheaders();
+
+        $id     = isset($headers['User-Ref']) ? $headers['User-Ref'] : '';
+        $auth   = isset($headers['Auth-Key']) ? $headers['Auth-Key'] : '';
+
+        return check_api_auth($id, $auth);
+    }
+
+
     // This function will format an error that we can use in the app
     function error($message = "The Server could not process your request due to an unknown error.")
     {

@@ -2,11 +2,9 @@
     include '../libraries/database.php';
     include '../libraries/http.php';
 
+    ($_SERVER['REQUEST-METHOD'] ===  'GET') or error();
+    check_login_auth() or error("You have no permission to be here.");
+
     $shows = get_all_shows();
-
-    http_response_code(200);
-    header('Access-Control-Allow-Origin: *');
-    header('Content-Type: application/json');
-
-    echo json_encode(mysqli_fetch_all($shows, MYSQLI_ASSOC), JSON_NUMERIC_CHECK + JSON_PRETTY_PRINT);
+    success('shows', mysqli_fetch_all($shows, MYSQLI_ASSOC));
 ?>
